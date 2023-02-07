@@ -33,9 +33,9 @@ if(($Client -eq $null)) {
 }
 
 else {    
-    $InstallerName   = "ConnectWiseControl.ClientSetup.msi"
+    $InstallerName = "ConnectWiseControl.ClientSetup.msi"
     $InstallerPath = Join-Path $Env:TMP $InstallerName
-    $DownloadURL     = "https://" + $url + "/Bin/ConnectWiseControl.ClientSetup.msi?h=" + $cwchost + "&p=" + $port + "&k=" + $key + "&e=Access&y=Guest&t=&c=" + $client + "&c=&c=&c=&c=&c=&c=&c="
+    $DownloadURL = "https://" + $fqdn + "/Bin/ConnectWiseControl.ClientSetup.msi?h=" + $cwchost + "&p=" + $port + "&k=" + $key + "&e=Access&y=Guest&t=&c=" + $client + "&c=&c=&c=&c=&c=&c=&c="
     [Net.ServicePointManager]::SecurityProtocol = [Enum]::ToObject([Net.SecurityProtocolType], 3072)
     $WebClient = New-Object System.Net.WebClient
     $WebClient.DownloadFile($DownloadURL, $InstallerPath)
