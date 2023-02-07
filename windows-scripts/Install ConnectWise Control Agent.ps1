@@ -21,8 +21,8 @@ Set these up in Nerdio Manager under Settings->Portal. The variables to create a
 ##### Required Variables #####
 
 $fqdn = $SecureVars.CWCFQDN
-$host = $SecureVars.CWCHost
-$portHost = $SecureVars.CWCPort
+$cwchost = $SecureVars.CWCHost
+$port = $SecureVars.CWCPort
 $key = $SecureVars.CWCKey
 $client = $SecureVars.CWCClient
 
@@ -35,7 +35,7 @@ if(($Client -eq $null)) {
 else {    
     $InstallerName   = "ConnectWiseControl.ClientSetup.msi"
     $InstallerPath = Join-Path $Env:TMP $InstallerName
-    $DownloadURL     = "https://" + $url + "/Bin/ConnectWiseControl.ClientSetup.msi?h=" + $host + "&p=" + $port + "&k=" + $key + "&e=Access&y=Guest&t=&c=" + $client + "&c=&c=&c=&c=&c=&c=&c="
+    $DownloadURL     = "https://" + $url + "/Bin/ConnectWiseControl.ClientSetup.msi?h=" + $cwchost + "&p=" + $port + "&k=" + $key + "&e=Access&y=Guest&t=&c=" + $client + "&c=&c=&c=&c=&c=&c=&c="
     [Net.ServicePointManager]::SecurityProtocol = [Enum]::ToObject([Net.SecurityProtocolType], 3072)
     $WebClient = New-Object System.Net.WebClient
     $WebClient.DownloadFile($DownloadURL, $InstallerPath)
