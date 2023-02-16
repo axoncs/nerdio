@@ -9,4 +9,4 @@
 ##### Required Variables #####
 
 ##### Script Logic #####
-vssadmin resize ShadowStorage /For=C: On=C: MaxSize=10%
+vssadmin resize ShadowStorage /For=C: /On=C: MaxSize=10%
