@@ -98,7 +98,7 @@ Write-Host "Locating onboarding script under:" $onboardingPackageLocation
 
 $onboardingScript = [System.IO.Path]::Combine($onboardingPackageLocation, "WindowsDefenderATPOnboardingScript.cmd");
 
-if(!(Test-Path -path $onboardingPackageLocation)){write-host 'creating path' ; New-Item -Path "c:\Axon" -Name "Axon\WindowsDefender" -ItemType "directory" -force}
+if(!(Test-Path -path $onboardingPackageLocation)){write-host 'creating path' ; New-Item -Path $onboardingPackageLocation -ItemType "directory" -force}
 IF([Net.SecurityProtocolType]::Tls12) {[Net.ServicePointManager]::SecurityProtocol=[Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12}
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/axoncs/nerdio/main/windows-scripts/WindowsDefenderATPOnboardingScript.cmd" -OutFile $onboardingScript
 
