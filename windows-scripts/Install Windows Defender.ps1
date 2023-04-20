@@ -21,7 +21,7 @@ Set these up in Nerdio Manager under Settings->Portal. The variables to create a
 
 ##### Required Variables #####
 $onboardingPackageLocation = "C:\Axon\WindowsDefender"
-
+$onboardingScriptURL = "https://raw.githubusercontent.com/axoncs/nerdio/main/windows-scripts/WindowsDefenderATPOnboardingScript.cmd"
 
 ##### Script Logic #####
 
@@ -100,7 +100,7 @@ $onboardingScript = [System.IO.Path]::Combine($onboardingPackageLocation, "Windo
 
 if(!(Test-Path -path $onboardingPackageLocation)){write-host 'creating path' ; New-Item -Path $onboardingPackageLocation -ItemType "directory" -force}
 IF([Net.SecurityProtocolType]::Tls12) {[Net.ServicePointManager]::SecurityProtocol=[Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12}
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/axoncs/nerdio/main/windows-scripts/WindowsDefenderATPOnboardingScript.cmd" -OutFile $onboardingScript
+Invoke-WebRequest -Uri $onboardingScriptURL -OutFile $onboardingScript
 
 $onboardingScript = [System.IO.Path]::Combine($onboardingPackageLocation, "WindowsDefenderATPOnboardingScript.cmd");
 
