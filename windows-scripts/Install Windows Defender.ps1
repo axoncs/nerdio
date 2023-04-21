@@ -10,7 +10,7 @@
 # For that purpose, senseGuid is set prior to onboarding
 # The guid is created deterministically based on combination of orgId and machine name 
 # This script is intended to be integrated in golden image startup
-Param (	
+
 <#
 Notes:
 
@@ -20,16 +20,10 @@ Set these up in Nerdio Manager under Settings->Portal. The variables to create a
 #>
 
 ##### Required Variables #####
-$onboardingPackageLocation = "C:\Axon\WindowsDefender"
-$onboardingScriptURL = "https://raw.githubusercontent.com/axoncs/nerdio/main/windows-scripts/WindowsDefenderATPOnboardingScript.cmd"
+	$onboardingPackageLocation = "C:\Axon\WindowsDefender"
+	$onboardingScriptURL = "https://raw.githubusercontent.com/axoncs/nerdio/main/windows-scripts/WindowsDefenderATPOnboardingScript.cmd"
 
 ##### Script Logic #####
-
-
-	[string]
-	[ValidateNotNullOrEmpty()]
-    [ValidateScript({Test-Path $_ -PathType ‘Container’})]
-)
 
 Add-Type @'
 using System; 
@@ -146,7 +140,9 @@ if ($populatedSenseGuid)
 [Microsoft.Win32.Registry]::SetValue($senseGuidRegPath, $senseGuidValueName, $senseGuid)
 Write-Host "SenseGuid was set:" $senseGuid
 
-
+$vdiTagRegPath = "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Advanced Threat Protection\DeviceTagging"
+$vdiTagValueName = "VDI";
+$vdiTag = "NonPersistent";
 [Microsoft.Win32.Registry]::SetValue($vdiTagRegPath, $vdiTagValueName, $vdiTag)
 Write-Host "VDI tag was set:" $vdiTag
 
