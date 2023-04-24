@@ -20,6 +20,7 @@ Set these up in Nerdio Manager under Settings->Portal. The variables to create a
 #>
 
 ##### Required Variables #####
+	$OrgID = $SecureVars.OrgID
 	$onboardingPackageLocation = "C:\Axon\WindowsDefender"
 	$onboardingScriptURL = "https://raw.githubusercontent.com/axoncs/nerdio/main/windows-scripts/WindowsDefenderATPOnboardingScript.cmd"
 
@@ -111,7 +112,7 @@ if(![System.IO.File]::Exists($onboardingScript))
     }
 }
 
-$orgId = ReadOrgIdFromOnboardingScript($onboardingScript);
+#$orgId = ReadOrgIdFromOnboardingScript($onboardingScript);
 if ([string]::IsNullOrEmpty($orgId))
 {
     Write-Host -ForegroundColor Red "Could not deduct organization id from onboarding script:" $onboardingScript
@@ -147,7 +148,7 @@ $vdiTag = "NonPersistent";
 Write-Host "VDI tag was set:" $vdiTag
 
 Write-Host "Starting onboarding"
-&$onboardingScript
+&$onboardingScript $OrgID
 if ($LASTEXITCODE -ne 0)
 {
     Write-Host -ForegroundColor Red "Failed to onboard sense service from: $($onboardingScript). Exit code: $($LASTEXITCODE). To troubleshoot, please read https://technet.microsoft.com/en-us/itpro/windows/keep-secure/troubleshoot-onboarding-windows-defender-advanced-threat-protection"
