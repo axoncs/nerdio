@@ -99,8 +99,6 @@ if(!(Test-Path -path $onboardingPackageLocation)){write-host 'creating path' ; N
 IF([Net.SecurityProtocolType]::Tls12) {[Net.ServicePointManager]::SecurityProtocol=[Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12}
 Invoke-WebRequest -Uri $onboardingScriptURL -OutFile $onboardingScript
 
-$onboardingScript = [System.IO.Path]::Combine($onboardingPackageLocation, "WindowsDefenderATPOnboardingScript.cmd");
-
 if(![System.IO.File]::Exists($onboardingScript))
 {
     Write-Host -ForegroundColor Red "Onboarding script not found:" $onboardingScript
