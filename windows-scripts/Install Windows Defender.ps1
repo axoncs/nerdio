@@ -132,12 +132,21 @@ Write-Host "Generated senseGuid:" $senseGuid
 $senseGuidRegPath = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Advanced Threat Protection"
 $senseGuidValueName = "senseGuid";
 $populatedSenseGuid = [Microsoft.Win32.Registry]::GetValue($senseGuidRegPath, $senseGuidValueName, $null)
+$senseState = (Get-Service -Name "SENSE").Status
 if ($populatedSenseGuid)
 {
     Write-Host -ForegroundColor Red "SenseGuid already populated:" $populatedSenseGuid
-    Trace("SenseGuid already populated")
-    Exit 4;
-}
+    Trace("SenseGuid already populated. Attempting to clear SenseGuid if SENSE is stopped.")
+    if ($senseState -eq "Stopped") 
+    {
+        [Microsoft.Win32.Registry]::SetValue($senseGuidRegPath, $senseGuidValueName, "")
+    } else
+    { 
+        Write-Host -ForegroundColor Red "SENSE service state is:" $senseState
+        Trace("Sense service is not stopped. Exiting script.")
+        Exit 4;
+    }
+} 
 [Microsoft.Win32.Registry]::SetValue($senseGuidRegPath, $senseGuidValueName, $senseGuid)
 Write-Host "SenseGuid was set:" $senseGuid
 
