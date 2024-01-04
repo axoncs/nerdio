@@ -20,10 +20,10 @@ Set these up in Nerdio Manager under Settings->Portal. The variables to create a
 
 ##### Required Variables #####
 
-$fqdn = $SecureVars.CWCFQDN
-$cwchost = $SecureVars.CWCHost
-$port = $SecureVars.CWCPort
-$key = $SecureVars.CWCKey
+$fqdn = $InheritedVars.CWCFQDN
+$cwchost = $InheritedVars.CWCHost
+$port = $InheritedVars.CWCPort
+$key = $InheritedVars.CWCKey
 $client = $SecureVars.CWCClient
 
 ##### Script Logic #####
